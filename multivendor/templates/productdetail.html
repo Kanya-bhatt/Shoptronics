@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+     <div class="col-sm-6 text-center align-self-center">
+      <img src="{{product.imageURL}}" alt="" class="img-fluid img-thumbnail" height="600px" width = "220px">
+     </div>
+     <div class="col-sm-5 offset-sm-1">
+      <h3>Name : {{product.product_name}}</h3>
+      <hr>
+      <p>Category : {{product.category}}</p> <br>
+      <h4>Price : Rs. {{product.cost}}<br>
+        <button  data-product = "{{product.id}}" data-action = "add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+     </div>
+    </div>
+   </div>
+{% endblock content %}

@@ -1,0 +1,96 @@
+.nh
+.TH "GH-CODESPACE-SSH" "1" "Mar 2023" "GitHub CLI 2.24.3" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-codespace-ssh - SSH into a codespace
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh codespace ssh [<flags>...] [-- <ssh-flags>...] [<command>]\fR
+
+
+.SH DESCRIPTION
+.PP
+The 'ssh' command is used to SSH into a codespace. In its simplest form, you can
+run 'gh cs ssh', select a codespace interactively, and connect.
+
+.PP
+By default, the 'ssh' command will create a public/private ssh key pair to
+.br
+authenticate with the codespace inside the ~/.ssh directory.
+
+.PP
+The 'ssh' command also supports deeper integration with OpenSSH using a '--config'
+option that generates per-codespace ssh configuration in OpenSSH format.
+Including this configuration in your ~/.ssh/config improves the user experience
+of tools that integrate with OpenSSH, such as bash/zsh completion of ssh hostnames,
+remote path completion for scp/rsync/sshfs, git ssh remotes, and so on.
+
+.PP
+Once that is set up (see the second example below), you can ssh to codespaces as
+if they were ordinary remote hosts (using 'ssh', not 'gh cs ssh').
+
+.PP
+Note that the codespace you are connecting to must have an SSH server pre-installed.
+If the docker image being used for the codespace does not have an SSH server,
+install it in your Dockerfile or, for codespaces that use Debian-based images,
+you can add the following to your devcontainer.json:
+
+.PP
+"features": {
+	"ghcr.io/devcontainers/features/sshd:1": {
+		"version": "latest"
+	}
+}
+
+
+.SH OPTIONS
+.TP
+\fB\fC-c\fR, \fB\fC--codespace\fR \fB\fC<string>\fR
+Name of the codespace
+
+.TP
+\fB\fC--config\fR
+Write OpenSSH configuration to stdout
+
+.TP
+\fB\fC-d\fR, \fB\fC--debug\fR
+Log debug data to a file
+
+.TP
+\fB\fC--debug-file\fR \fB\fC<string>\fR
+Path of the file log to
+
+.TP
+\fB\fC--profile\fR \fB\fC<string>\fR
+Name of the SSH profile to use
+
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<string>\fR
+Filter codespace selection by repository name (user/repo)
+
+.TP
+\fB\fC--server-port\fR \fB\fC<int>\fR
+SSH server port number (0 => pick unused)
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+$ gh codespace ssh
+
+$ gh codespace ssh --config > ~/.ssh/codespaces
+$ printf 'Match all\\nInclude ~/.ssh/codespaces\\n' >> ~/.ssh/config
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-codespace(1)\fR

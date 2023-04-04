@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form action="{% url 'searchProduct'%}" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+        <input type="search" id="searchproducts" name="productsearch" class="form-control form-control-lg" placeholder="Search" required></input>
+        <button type="submit" class="input-group-text">Search</button>
+    </div>      
+</form>
+<div class="row">
+    {% for product in products %}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="{{product.imageURL}}">
+        <div class="box-element product">
+            <h6><strong>{{product.product_name}}</strong></h6>
+            <hr>
+
+            <button  data-product = "{{product.id}}" data-action = "add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <button data-product = "{{ product.id }}" class="btn btn-outline-secondary">
+                <a href = "{% url 'product-detail' product.id %}" >View</a>
+             </button>
+            <h4 style="display: inline-block; margin-left: 0;"><strong>${{product.cost|floatformat:2}}</strong></h4>
+        </div>
+       
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+

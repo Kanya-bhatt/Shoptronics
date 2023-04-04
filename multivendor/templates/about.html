@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Shoptronics</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel = "icon" href = "{% static "images/logo1.png" %}" type = "image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+     <script type = "text/javascript"> 
+
+
+
+    var user = '{{request.user}}'
+    function getToken(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken('csrftoken');
+
+
+function getCookie(name){
+    var cookieArr = document.cookie.split(";");
+    for(var i = 0; i < cookieArr.length; i++){
+        var cookiePair = cookieArr[i].split("=");
+        if(name == cookiePair[0].trim()){
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+var cart = JSON.parse(getCookie('cart'))
+if( cart == undefined){
+    cart = {}
+    console.log('cart was created')
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+}
+console.log('cart:',cart)
+</script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+
+
+</head>
+<body>
+    <div class="header">
+        <div class="navbar">
+     <div class="logo">
+         <a href="index.html">{% load static %}<img src="{% static "images/logo1.png" %}" width="165px" height="75px" style="padding-left:20px ;"></a>
+     </div>
+     <nav>
+         <ul id="MenuItems">
+            <li><a href="/main">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            
+           
+            <li><button type = "submit"><a href="/signout">Signout</a></button></li>
+            </ul>
+     </nav>
+     <a href="/cart">{% load static %}<img src="{% static "images/cart.png" %}" width="30px" height="30px"></a>
+     <div class = "form-inline my-2 my-lg-0">
+        <p id = "cart-total">{{cartItems}}</p>
+        
+     </div>
+     {% load static %}<img src=ages/menu.png" %}"{% static "im" class="menu-icon" onclick="menutoggle()">
+ </div>
+   
+ <div class="container">
+    <br>
+    {% block content %}
+
+    <div class="cont1" align="center">
+        <div class="heading">
+            <h1>About <span>us</span></h1>
+        </div>
+      </div>
+      <div class="bg">
+        <div class="container py-5">
+          <div class="row h-100 align-items-center py-5">
+            <div class="col-lg-6">
+              
+              <p class="lead text  mb-3" style="font-size: 22px;"><b>We as a team are here to represent an interface where the user can shop for all college based necessities needed by any average student studying in an university. we have come up with an idea where any user can either sell or buy the products with ease. we have used Django, HTML, CSS, JavaScript to build this project, I hope your experience with our interface is filled with ease, to know more about us scroll down. </b></p>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block"><img src="https://img.freepik.com/free-vector/men-with-shopping-car-business-coins_24877-53519.jpg?size=626&ext=jpg&ga=GA1.2.875555201.1663485851&semt=ais" height="550" width="750" class="img-fluid" style="margin-left: 50px;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg py-5">
+        <div class="container py-5">
+          <div class="row mb-4">
+            <div class="col-lg-5">
+              <h2 class="display-4 font-weight-light">Our team</h2>
+              <p class="font-italic text-muted">To know our developers more, click on there social profiles.</p>
+            </div>
+          </div>
+      
+          <div class="row text-center">
+      
+            <div class="col-xl-6 col-sm-6 mb-5"></div>
+            <!-- Team item-->
+            <div class="col-xl-6 col-sm-6 mb-7" style="margin-left: 2px; margin-bottom: 100px;">
+              <div class="bg-white rounded shadow-sm py-5 px-4"> {% load static %}<img src="{% static "images/kanya.jpg" %}" alt="" width="150" height="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0" style="font-weight: normal">Kanya<br style="font-weight: normal;">Currently persuing a Computer Engineering degree at Dharmsinh Desai University. Extremely innovative, have a strong research skills, ability to get focused, good oraganisation skills.</h5><span class="small text-uppercase text-muted">Content Writter</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="https://github.com/Kanya-bhatt" class="social-link"><i class="fa fa-github"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.instagram.com/kanyabhatt/?hl=en" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.linkedin.com/in/kanya-bhatt-54006b223/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.ddu.ac.in/" class="social-link"><i class="fa fa-address-card"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+            <!-- Team item-->
+            <div class="col-xl-6 col-sm-6 mb-7">
+              <div class="bg-white rounded shadow-sm py-5 px-4"> {% load static %}<img src="{% static "images/shruti.jpg" %}" alt="" width="150" height="150"class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0" style="font-weight: normal;">Shruti <br> Currently persuing a Computer Engineering degree at Dharmsinh Desai University. Very passionate, open minded, fast self learner, a good team player, 'Never say die' attitude.</h5><span class="small text-uppercase text-muted">Web Devloper</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="https://github.com/shrutib11" class="social-link"><i class="fa fa-github"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.instagram.com/__shrutii_11_/" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.linkedin.com/in/shruti-bhalodia-686114228/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.ddu.ac.in/" class="social-link"><i class="fa fa-address-card"></i></a></li>
+                  
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+          </div>
+        </div>
+        
+      </div>
+      
+    
+      
+    {% endblock content %}
+ </div>
+
+<script type = "text/javascript" src = "{% static 'js/cart.js'%}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+{% include 'footer.html '%} 
+<script>
+                    var MenuItems = document.getElementById("MenuItems");
+                    MenuItems.style.maxHeight = "0px";
+                    function menutoggle(){
+                        if(MenuItems.style.maxHeight == "0px")
+                            {
+                                MenuItems.style.maxHeight = "200px";
+                            }
+                        else
+                            {
+                                MenuItems.style.maxHeight = "0px";
+                            }
+                    }
+                </script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+          <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+          <script>
+            var availableTags = [];
+        
+            $.ajax({
+                method:"GET",
+                url:"/product-list",
+                success: function(response){
+                    startAutoComplete(response)
+                }
+            })
+            function startAutoComplete(availableTags){
+                $( "#searchproducts" ).autocomplete({
+                    source: availableTags
+                });
+            }
+          </script>
+ 
+</body>
+</html>
